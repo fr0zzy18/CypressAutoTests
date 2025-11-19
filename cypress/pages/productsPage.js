@@ -16,22 +16,27 @@ class ProductsPage {
         cy.get('input[placeholder="Search Product"]').type(query)
         cy.get('#submit_search').click()
         cy.get('.productinfo').should('have.length.greaterThan', 0)
-       /*  cy.get('.productinfo').each((item) => {
-            cy.wrap(item).find('p').invoke('text').then((text) => {
-                expect(text.toLowerCase()).to.include(query.toLowerCase())
-            })
-        }) */
+    }
+    changeProductQuantity(quantity){
+        cy.get('input[name="quantity"]').clear().type(quantity)
     }
     addToCart(){
-        cy.get('a[data-product-id="1"]').first().click()
-        cy.contains('Continue Shopping').click()
-        cy.get('a[data-product-id="2"]').first().click()
+        cy.get('button.cart').click()
         cy.contains('View Cart').click()
-
     }
-    continueShopping(){
-        cy.contains('Continue Shopping').click()
+    addToCartMultiple(){
+        const addProduct = (id, quantity = 1) => {
+        for (let i = 0; i < quantity; i++) {
+            cy.get(`a[data-product-id="${id}"]`).first().click();
+            cy.contains(/continue shopping/i).click(); 
+        }
+    };
+        addProduct(1, 2);
+        addProduct(2, 1);
+        addProduct(4, 3);
     }
+  
+    
 }
 
 export const productsPage = new ProductsPage()

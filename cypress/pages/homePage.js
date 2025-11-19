@@ -24,6 +24,12 @@ class HomePage {
         cy.get('#subscribe').click()
         cy.contains('You have been successfully subscribed!').should('be.visible')
     }
+    verifyProductsList(){
+        cy.get('.features_items').should('be.visible')
+    }
+    viewProduct(){
+        cy.get('.nav-pills').eq(1).click()
+    }
 }
 
 export const homePage = new HomePage()

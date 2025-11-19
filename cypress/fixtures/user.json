@@ -3,8 +3,11 @@
   "password": "cypresstestpassword",
   "email": "cypresstestemail@mailbox.ua",
 
-  "firstName": "Bohdan",
-  "lastName": "Vdovychenko",
+  "firstName": "Pumpkin",
+  "lastName": "Panda",
+  "DayofBirth": "31",
+  "MonthofBirth": "August",
+  "YearofBirth": "1990",
   "company": "Testlearning",
   "address1": "Sacramento",
   "address2": "Fresno",
