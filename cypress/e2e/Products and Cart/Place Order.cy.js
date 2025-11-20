@@ -1,28 +1,28 @@
 /// <reference types="cypress" />
-
-import user from '../../fixtures/user.json'
+import testData from '../../fixtures/testData.json'
+import user from '../../fixtures/testUser.json'
+import card from '../../fixtures/cardData.json'
 import { cartPage } from "../../pages/cartPage"
+import { checkoutPage } from '../../pages/checkoutPage'
 import { homePage } from "../../pages/homePage"
 import { loginPage } from "../../pages/loginPage"
+import { paymentPage } from '../../pages/paymentPage'
 import { productsPage } from "../../pages/productsPage"
-import { signupPage } from '../../pages/signupPage'
 
 describe('Placing order', () => {
     beforeEach(() => {
             homePage.visit()
 })
-    it('Register while Checkout', () => {
+    it('Login while Checkout', () => {
         productsPage.addToCartMultiple()
         cartPage.visit()
         cartPage.checkoutAndLogin()
-        loginPage.signup(user.login, user.email)
-        loginPage.submitSignup()
-        signupPage.verifyPrefilled(user.login, user.email)
-        signupPage.fillPersonalInfo(user.password, user.DayofBirth, user.MonthofBirth, user.YearofBirth)
-        signupPage.fillAddressInfo(user)
-        signupPage.submitForm()
+        loginPage.login(user.email, user.password)
+        loginPage.submitLogin()
         homePage.verifyUser(user.login)
         cartPage.visit()
-        cartPage.checkout()        
+        cartPage.checkout()
+        checkoutPage.placeOrder(testData.oredDescr) 
+        paymentPage.confirmOrder(card.cardName, card.cardNumber, card.CVC, card.Expiration, card.Year)     
     })
 })
